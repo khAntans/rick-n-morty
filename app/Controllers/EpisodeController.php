@@ -81,7 +81,7 @@ class EpisodeController
         $episodesInSeason = $episodes->getSeason($input);
         return new Response("episode/season", [
             'season' => $season,
-            'episodes' => $episodes
+            'episodes' => $episodesInSeason
         ]);
     }
 

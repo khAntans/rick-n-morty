@@ -19,14 +19,26 @@ class GeoCoding
 
     public function fetch(string $city, string $apiKey): Location
     {
+        $url = $this->getUrl($city, $apiKey);
+        $result = $this->client->get($url);
+        $location_data = json_decode($result->getBody()->getContents());
 
-        $location = file_get_contents("https://api.openweathermap.org/geo/1.0/direct?q=$city&limit=1&appid=$apiKey");
-        $location_data = json_decode($location);
         $cityName = $location_data[0]->name;
         $country = $location_data[0]->country;
         $latitude = round($location_data[0]->lat, 2);
         $longitude = round($location_data[0]->lon, 2);
         return new Location($cityName, $country, $latitude, $longitude);
+    }
+
+    private function getUrl(string $city, string $apiKey): string
+    {
+        $params = [
+            "q" => $city,
+            "limit" => 1,
+            "appid" => $apiKey
+        ];
+
+        return self::BASE_URL . http_build_query($params);
     }
 
 }

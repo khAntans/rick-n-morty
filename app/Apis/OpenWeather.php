@@ -23,8 +23,11 @@ class OpenWeather
     {
         $latitude = $location->getLatitude();
         $longitude = $location->getLongitude();
-        $weather = file_get_contents(self::BASE_URL . "lat=$latitude&lon=$longitude&units=metric&appid=$apiKey");
-        $weatherData = json_decode($weather);
+
+        $url = $this->getUrl($latitude, $longitude, $apiKey);
+        $result = $this->client->get($url);
+        $weatherData = json_decode($result->getBody()->getContents());
+
         $temp = round($weatherData->hourly[0]->temp);
         $feelsLike = round($weatherData->hourly[0]->feels_like);
         $windSpeed = round($weatherData->hourly[0]->wind_speed, 1);
@@ -36,6 +39,18 @@ class OpenWeather
 
         return new CityWeather($location, $temp, $feelsLike, $windSpeed, $windDirection, $humidity, $sunrise, $sunset, $img);
 
+    }
+
+    protected function getUrl(float $latitude, float $longitude, string $apiKey): string
+    {
+        $params = [
+            "lat" => $latitude,
+            "lon" => $longitude,
+            'units' => 'metric',
+            "appid" => $apiKey
+        ];
+
+        return self::BASE_URL . http_build_query($params);
     }
 
     private function windDirection(float $windDeg): string

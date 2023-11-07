@@ -19,10 +19,22 @@ class TimeApi
 
     public function fetch(float $latitude, float $longitude): Carbon
     {
-        $result = json_decode(file_get_contents("https://timeapi.io/api/Time/current/coordinate?latitude=$latitude&longitude=$longitude"));
+        $url = $this->getUrl($latitude, $longitude);
+        $result = $this->client->get($url);
+        $result = json_decode($result->getBody()->getContents());
         $dateTime = $result->dateTime;
         $timeZone = $result->timeZone;
         return Carbon::parse($dateTime, $timeZone);
+    }
+
+    private function getUrl(float $latitude, float $longitude): string
+    {
+        $params = [
+            "latitude" => $latitude,
+            "longitude" => $longitude
+        ];
+
+        return self::BASE_URL . http_build_query($params);
     }
 
 }
