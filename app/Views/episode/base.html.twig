@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="/css/main.css" rel="stylesheet"/>
+    <link href="/css/weather-box.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="wrapper">
+    {% block header %}
+        <a href="/EpisodeIndex"><h1 style="text-align: center">Rick N Morty</h1></a>
+    {% endblock %}
+    {% block search %}
+        <div class="main-navigation">
+            <form action="/search" method="GET">
+                <input class="search" type="search" name="input" placeholder="search...">
+                <button class="search" type="submit" value="submit">>></button>
+            </form>
+            <a class="home-button nav-button" href="/">Home</a>
+            <a class="seasons-button nav-button" href="/Seasons">Seasons</a>
+            <a class="episodes-button nav-button" href="/EpisodeIndex">Episodes</a>
+        </div>
+    {% endblock %}
+    {% block weather %}
+        {% include 'episode/weatherBox.html.twig' %}
+    {% endblock %}
+    {% if page != false or id !=false %}
+        {% block navigation %}
+            <nav class="text-box sub-navigation">
+                {% if((episode.id == 1)or(page == 1)) %}
+                {% else %}
+                    <a href="{{ uri ~ previous }}" class="previous">
+                        <p><< previous</p>
+                    </a>
+                {% endif %}
+                <p>{% if(episode.id) %}
+                        Episode : {{ episode.id }} / {{ totalEpisodeCount }}
+                    {% else %}Current page: {{ page }} / {{ (totalEpisodeCount / itemsPerPage)|round(0,'ceil') }}
+                    {% endif %} </p>
+
+                {% if((episode.id >= totalEpisodeCount)or(page >= (totalEpisodeCount / itemsPerPage)|round(0,'ceil'))) %}
+                {% else %}
+                    <a href="{{ uri ~ next }}" class="next">
+                        <p>next >></p>
+                    </a>
+                {% endif %}
+
+            </nav>
+        {% endblock %}
+    {% endif %}
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
+</html>

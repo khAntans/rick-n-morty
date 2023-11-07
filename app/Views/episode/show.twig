@@ -1,0 +1,39 @@
+{% extends "episode/base.html.twig" %}
+
+{% block title %}
+    {{ episode.id }} : {{ episode.name }}
+{% endblock %}
+{% set previous = id - 1 %}
+{% if previous < 1 %}
+    {% set previous =  1 %}
+{% endif %}
+{% set next = id + 1 %}
+{% if next > totalEpisodeCount %}
+    {% set next =  totalEpisodeCount %}
+{% endif %}
+{% set uri = '/Episode/' %}
+{% block body %}
+
+    <div class="text-box">
+        <h2>{{ episode.name }}</h2>
+        <p>{{ episode.episode }}</p>
+    </div>
+    <div class="text-box">
+        <p><b>First aired:</b> {{ episode.airDate.format("Y/m/d") }}</p>
+
+    </div>
+    <div class="text-box">
+        <p><b>Created:</b> {{ episode.created.format("Y/m/d H:i") }}</p>
+    </div>
+    {#    {% set characters %} #}
+    <div class="img-box">
+        <h3 style="display: block;width:100%">Characters in episode: </h3>
+        {% for character in characters %}
+            <div class="img-item">
+                <img src="{{ character.imageUrl }}" alt="{{ character.name }}">
+                <p>{{ character.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% block weather %}
+    <div class="weather-box">
+
+        <div class="weather-location">
+            <h4>
+                {{ cityName }}
+            </h4>
+            <h5>
+                {{ country }}
+            </h5>
+        </div>
+
+
+        <div class="weather-icon">
+            <img src="https://openweathermap.org/img/wn/{{ imgName }}">
+            <h4>{{ temperature }}°C</h4>
+        </div>
+
+        <div class="weather-data">
+            <p>
+                Weather in {{ cityName }}:
+            </p>
+            <p>
+                {{ temperature }}°C (feels {{ feelsLike }}°C)
+            </p>
+            <p>
+                {{ windDir }} {{ windSpeed }}m/s
+            </p>
+            <p>
+                Humidity: {{ humidity }}%
+            </p>
+            <p>
+                Sunrise {{ sunrise }} | Sunset {{ sunset }}
+            </p>
+        </div>
+
+        <div class="weather-search-box">
+            <form method="GET">
+                <input class="search" type="text" name="city" placeholder="enter a city...">
+                <button class="search" type="submit">>></button>
+            </form>
+        </div>
+
+        <div class="local-time">
+            Time {{ localTime }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "episode/base.html.twig" %}
+
+{% block title %}
+    Season Index
+{% endblock %}
+{% block body %}
+    <div class="" style="background-color: white;">
+        <h2>Season {{ season }}</h2>
+    </div>
+    <div class="episodes">
+        {% for episode in episodes %}
+            {% if(episode.episode|slice(1,2)) == '01' %}
+                {% set seasonColor = 'red' %}
+            {% elseif(episode.episode|slice(1,2)) == '02' %}
+                {% set seasonColor = 'coral' %}
+            {% elseif(episode.episode|slice(1,2)) == '03' %}
+                {% set seasonColor = 'green' %}
+            {% elseif(episode.episode|slice(1,2)) == '04' %}
+                {% set seasonColor = 'purple' %}
+            {% elseif(episode.episode|slice(1,2)) == '05' %}
+                {% set seasonColor = 'pink' %}
+            {% elseif(episode.episode|slice(1,2)) == '06' %}
+                {% set seasonColor = 'orange' %}
+            {% elseif(episode.episode|slice(1,2)) == '07' %}
+                {% set seasonColor = 'aquablue' %}
+            {% elseif(episode.episode|slice(1,2)) == '08' %}
+                {% set seasonColor = 'yellow' %}
+            {% endif %}
+            <div class="episodeId">
+                <a href="/Episode/{{ episode.id }}"><h2>{{ episode.name }}</h2></a>
+                <p><b>First aired:</b> {{ episode.airDate.format("Y/m/d") }}</p>
+                <div class="season-Color"
+                     style="background-color: {{ seasonColor }};
+                             height: 100%;
+                             width: 100%;
+                             font-size: 120%;
+                             z-index: 99;
+                             display: grid;
+                             justify-content: center;
+                             align-items: center"><b>{{ (episode.episode|slice(1,2)) }}</b></div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

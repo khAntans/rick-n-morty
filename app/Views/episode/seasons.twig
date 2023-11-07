@@ -1,0 +1,10 @@
+{% extends "episode/base.html.twig" %}
+{% block body %}
+
+    {% for season in seasons %}
+        <div class="seasonIndex">
+            <a href="/Season/{{ season }}"><h2>Season {{ season }}</h2></a>
+        </div>
+    {% endfor %}
+
+{% endblock %}

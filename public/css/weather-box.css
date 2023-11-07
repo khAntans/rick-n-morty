@@ -1,0 +1,114 @@
+.weather-box {
+    width: 600px;
+    height: 250px;
+    background-color: white;
+    line-height: 1px;
+    display: grid;
+    gap: 2px;
+    padding: 5px 4px;
+    margin: 5px 0;
+    grid-template:
+    "n n d d d d d d"
+    "n n d d d d d d"
+    "i i d d d d d d"
+    "i i d d d d d d"
+    "i i d d d d d d"
+    "s s s s t t t t"
+    "s s s s t t t t";
+}
+
+.weather-location {
+    grid-area: n;
+    /*white-space: nowrap;*/
+    /*   background-color: green; */
+    /*width: 116px;*/
+
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+}
+
+.weather-location > h4 {
+    font-size: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+.weather-location > h5 {
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+}
+
+
+.weather-icon {
+    grid-area: i;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    /*max-width: 116px;*/
+    /*max-height: 65.433px;*/
+    padding: 0;
+    margin: 0;
+    min-width: 160px;
+
+    position: relative;
+}
+
+.weather-icon > h4 {
+    text-align: center;
+    top: 0;
+    left: 0;
+    /*width: 116px;*/
+    /*height: 65.433px;*/
+    position: absolute;
+    overflow: hidden;
+    font-size: 50px;
+    letter-spacing: -5px;
+    opacity: 0.2;
+}
+
+.weather-icon > img {
+    width: 80px;
+    z-index: 2;
+}
+
+.weather-data {
+    grid-area: d;
+    /*   background-color: red; */
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    /*width: 349px;*/
+
+}
+
+.weather-search-box {
+    grid-area: s;
+    /*   background-color: pink; */
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+
+}
+
+.local-time {
+    grid-area: t;
+    /*   background-color: pink; */
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+
+}
+
+.weather-search-box > form > button {
+    border: 2px rgb(10, 10, 10) solid;
+}
+
+.weather-search-box > form > button:hover {
+    background-color: grey;
+}
